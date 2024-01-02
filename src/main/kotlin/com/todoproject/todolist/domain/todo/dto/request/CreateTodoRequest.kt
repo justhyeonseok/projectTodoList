@@ -7,5 +7,5 @@ data class CreateTodoRequest(
     val title: String,
     val content: String?,
     val date: LocalDateTime,
-    val createrName: String?
+    val writer: String?
 )

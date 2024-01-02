@@ -4,8 +4,8 @@ import jakarta.persistence.*
 import java.time.LocalDateTime
 
 @Entity
-@Table(name = "to_do_list")
-class TodoList(
+@Table(name = "todolist")
+class Todo(
     @Column(name = "title", nullable = false)
     var title: String,
 
@@ -15,8 +15,8 @@ class TodoList(
     @Column(name = "date", nullable = false)
     var date: LocalDateTime,
 
-    @Column(name = "createrName")
-    var createrName: String? = null
+    @Column(name = "writer")
+    var writer: String? = null
 ) {
 
     @Id
