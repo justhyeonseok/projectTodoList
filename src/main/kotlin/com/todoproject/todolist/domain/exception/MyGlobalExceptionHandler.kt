@@ -7,13 +7,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
-class GlobalExceptionHandler {
-
+class MyGlobalExceptionHandler {
     @ExceptionHandler(TodoNotFoundException::class)
     fun todoCommentNotFoundException(e: TodoNotFoundException): ResponseEntity<ErrorResponse> {
         return ResponseEntity
             .status(HttpStatus.NOT_FOUND)
-            .body(ErrorResponse(message = e.message, errorCode = "Todo를 찾을수 없음."))
-
+            .body(ErrorResponse(message = e.message, errorCode = "Todo를 찾을 수 없음"))
     }
 }
