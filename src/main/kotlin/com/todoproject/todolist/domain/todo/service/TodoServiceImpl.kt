@@ -14,8 +14,14 @@ import org.springframework.stereotype.Service
 @Service
 class TodoServiceImpl(private val todoRepository: TodoRepository): TodoService {
 
-    override fun getAllTodoList(): List<TodoResponse> {
-        return todoRepository.findAll().map { it.toResponse() }
+    //할일 완료 목록 조회
+    override fun getAllTodoList(completed: Boolean?): List<TodoResponse> {
+        val todos: List<Todo> = if (completed != null) {
+            todoRepository.findByCompleted(completed)
+        } else {
+            todoRepository.findAll()
+        }
+        return todos.map { it.toResponse() }
     }
 
 
@@ -55,14 +61,10 @@ class TodoServiceImpl(private val todoRepository: TodoRepository): TodoService {
 
     }
 
-    fun Todo.toResponse(): TodoResponse {
-        return TodoResponse(
-            id = id!!,
-            title = title,
-            content = content,
-            date = date,
-            writer = writer
-        )
+    @Transactional
+    override fun completeTodo(todoId: Long): TodoResponse {
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException("todo", todoId)
+        todo.completed = true
+        return todoRepository.save(todo).toResponse()
     }
 }
-

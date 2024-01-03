@@ -9,7 +9,8 @@ data class TodoResponse(
     val title: String,
     val content: String?,
     val date: LocalDateTime,
-    val writer: String?
+    val writer: String?,
+    val completed: Boolean
 )
 
 

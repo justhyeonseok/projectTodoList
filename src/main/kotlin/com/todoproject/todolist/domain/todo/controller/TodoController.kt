@@ -26,7 +26,7 @@ class TodoController(
     fun getTodoList(): ResponseEntity<List<TodoResponse>> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(todoService.getAllTodoList())
+            .body(todoService.getAllTodoList(completed = false))
     }
 
     // 할일 단건 조회
@@ -61,5 +61,13 @@ class TodoController(
         return ResponseEntity
             .status(HttpStatus.NO_CONTENT)
             .build()
+    }
+
+    //할일 완료
+    @PutMapping("/{todoId}/complete")
+    fun completeTodo(@PathVariable todoId: Long): ResponseEntity<TodoResponse> {
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(todoService.completeTodo(todoId))
     }
 }
