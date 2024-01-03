@@ -10,15 +10,15 @@ interface TodoService {
     fun getAllTodoList(): List<TodoResponse>
 
     // 할일 단건 조회
-    fun getTodoById(boardId: Long): TodoResponse
+    fun getTodoById(todoID: Long): TodoResponse
 
     // 할일 생성
     fun createTodo(createTodoRequest: CreateTodoRequest): TodoResponse
 
     // 할일 수정
-    fun updateTodo(boardId: Long, updateTodoRequest: UpdateTodoRequest): TodoResponse
+    fun updateTodo(todoId: Long, updateTodoRequest: UpdateTodoRequest): TodoResponse
 
     // 할일 삭제
-    fun deleteTodo(boardId: Long)
+    fun deleteTodo(todoId: Long)
 
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@RequestMapping("/boards")
+@RequestMapping("/todos")
 @RestController
 class TodoController(
     private val todoService: TodoService
@@ -30,11 +30,11 @@ class TodoController(
     }
 
     // 할일 단건 조회
-    @GetMapping("/{boardId}")
-    fun getTodo(@PathVariable boardId: Long): ResponseEntity<TodoResponse> {
+    @GetMapping("/{todoId}")
+    fun getTodo(@PathVariable todoId: Long): ResponseEntity<TodoResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(todoService.getTodoById(boardId))
+            .body(todoService.getTodoById(todoId))
     }
 
     //할일 생성
@@ -46,18 +46,18 @@ class TodoController(
     }
 
     // 할일 수정
-    @PutMapping("/{boardId}")
-    fun updateTodo(@PathVariable boardId: Long, @RequestBody updateTodoRequest: UpdateTodoRequest
+    @PutMapping("/{todoId}")
+    fun updateTodo(@PathVariable todoId: Long, @RequestBody updateTodoRequest: UpdateTodoRequest
     ): ResponseEntity<TodoResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(todoService.updateTodo(boardId, updateTodoRequest))
+            .body(todoService.updateTodo(todoId, updateTodoRequest))
     }
 
     // 할일 삭제
-    @DeleteMapping("/{boardId}")
-    fun deleteTodo(@PathVariable boardId: Long): ResponseEntity<Unit> {
-        todoService.deleteTodo(boardId)
+    @DeleteMapping("/{todoId}")
+    fun deleteTodo(@PathVariable todoId: Long): ResponseEntity<Unit> {
+        todoService.deleteTodo(todoId)
         return ResponseEntity
             .status(HttpStatus.NO_CONTENT)
             .build()

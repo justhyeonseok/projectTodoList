@@ -12,15 +12,15 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
-class   TodoServiceImpl(private val todoRepository: TodoRepository): TodoService {
+class TodoServiceImpl(private val todoRepository: TodoRepository): TodoService {
 
     override fun getAllTodoList(): List<TodoResponse> {
         return todoRepository.findAll().map { it.toResponse() }
     }
 
 
-    override fun getTodoById(boardId: Long): TodoResponse {
-        val todo = todoRepository.findByIdOrNull(boardId) ?: throw TodoNotFoundException("todo", boardId)
+    override fun getTodoById(todoId: Long): TodoResponse {
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException("todo", todoId)
         return todo.toResponse()
     }
 
@@ -37,8 +37,8 @@ class   TodoServiceImpl(private val todoRepository: TodoRepository): TodoService
     }
 
     @Transactional
-    override fun updateTodo(boardId: Long, updateTodoRequest: UpdateTodoRequest): TodoResponse {
-        val todo = todoRepository.findByIdOrNull(boardId) ?: throw TodoNotFoundException("todo", boardId)
+    override fun updateTodo(todoId: Long, updateTodoRequest: UpdateTodoRequest): TodoResponse {
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException("todo", todoId)
         val (title, content, date, writer) = updateTodoRequest
 
         todo.title = title
@@ -50,8 +50,8 @@ class   TodoServiceImpl(private val todoRepository: TodoRepository): TodoService
     }
 
     @Transactional
-    override fun deleteTodo(boardId: Long) {
-        val todo = todoRepository.findByIdOrNull(boardId) ?: throw TodoNotFoundException("todo", boardId)
+    override fun deleteTodo(todoId: Long) {
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException("todo", todoId)
 
     }
 
