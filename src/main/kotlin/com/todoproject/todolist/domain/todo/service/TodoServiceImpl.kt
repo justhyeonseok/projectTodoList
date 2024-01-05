@@ -1,6 +1,7 @@
 package com.todoproject.todolist.domain.todo.service
 
 
+import com.todoproject.todolist.domain.comment.dto.CommentResponse
 import com.todoproject.todolist.domain.todo.dto.request.CreateTodoRequest
 import com.todoproject.todolist.domain.todo.dto.request.UpdateTodoRequest
 import com.todoproject.todolist.domain.todo.dto.response.TodoResponse
@@ -58,6 +59,7 @@ class TodoServiceImpl(private val todoRepository: TodoRepository): TodoService {
     @Transactional
     override fun deleteTodo(todoId: Long) {
         val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException("todo", todoId)
+        todoRepository.delete(todo)
 
     }
 

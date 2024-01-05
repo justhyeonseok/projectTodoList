@@ -1,5 +1,6 @@
 package com.todoproject.todolist.domain.todo.service
 
+import com.todoproject.todolist.domain.comment.dto.CommentResponse
 import com.todoproject.todolist.domain.todo.dto.request.CreateTodoRequest
 import com.todoproject.todolist.domain.todo.dto.request.UpdateTodoRequest
 import com.todoproject.todolist.domain.todo.dto.response.TodoResponse

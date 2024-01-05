@@ -1,13 +1,16 @@
 package com.todoproject.todolist.domain.todo.controller
 
+import com.todoproject.todolist.domain.comment.dto.CommentResponse
 import com.todoproject.todolist.domain.todo.dto.request.CreateTodoRequest
 import com.todoproject.todolist.domain.todo.dto.request.UpdateTodoRequest
 import com.todoproject.todolist.domain.todo.dto.response.TodoResponse
 import com.todoproject.todolist.domain.todo.service.TodoService
+import org.hibernate.annotations.Fetch
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
@@ -39,7 +42,7 @@ class TodoController(
 
     //할일 생성
     @PostMapping()
-    fun creatTodo(@RequestBody creatTodoRequest: CreateTodoRequest): ResponseEntity<TodoResponse> {
+    fun createTodo(@RequestBody creatTodoRequest: CreateTodoRequest): ResponseEntity<TodoResponse> {
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(todoService.createTodo(creatTodoRequest))
@@ -64,7 +67,7 @@ class TodoController(
     }
 
     //할일 완료
-    @PutMapping("/{todoId}/complete")
+    @PatchMapping("/{todoId}/complete")
     fun completeTodo(@PathVariable todoId: Long): ResponseEntity<TodoResponse> {
         return ResponseEntity
             .status(HttpStatus.OK)
