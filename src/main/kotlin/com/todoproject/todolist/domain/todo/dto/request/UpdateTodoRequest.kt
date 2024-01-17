@@ -1,11 +1,18 @@
 package com.todoproject.todolist.domain.todo.dto.request
 
-import java.time.LocalDateTime
+import com.todoproject.todolist.domain.todo.model.Todo
+
 
 data class UpdateTodoRequest(
-
-    val title: String,
+    val title: String?,
     val content: String?,
-    val date: LocalDateTime,
     val writer: String?
-)
+) {
+    fun to(): Todo {
+        return Todo(
+            title = title,
+            content = content,
+            writer = writer
+        )
+    }
+}

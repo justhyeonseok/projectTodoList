@@ -1,11 +1,10 @@
 package com.todoproject.todolist.domain.todo.controller
 
-import com.todoproject.todolist.domain.comment.dto.CommentResponse
 import com.todoproject.todolist.domain.todo.dto.request.CreateTodoRequest
 import com.todoproject.todolist.domain.todo.dto.request.UpdateTodoRequest
-import com.todoproject.todolist.domain.todo.dto.response.TodoResponse
+import com.todoproject.todolist.domain.todo.dto.response.TodoDto
 import com.todoproject.todolist.domain.todo.service.TodoService
-import org.hibernate.annotations.Fetch
+import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -26,38 +25,43 @@ class TodoController(
 
     // 할일 목록조회
     @GetMapping()
-    fun getTodoList(): ResponseEntity<List<TodoResponse>> {
+    @Operation(summary = "할일 목록 전체 조회 ")
+    fun getTodoList(): ResponseEntity<List<TodoDto>> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(todoService.getAllTodoList(completed = false))
+            .body(todoService.getAllTodoList(completed = true))
     }
 
     // 할일 단건 조회
+    @Operation(summary = "할일 단건 조회", description = "할일 단건을 조회합니다.")
     @GetMapping("/{todoId}")
-    fun getTodo(@PathVariable todoId: Long): ResponseEntity<TodoResponse> {
+    fun getTodo(@PathVariable todoId: Long): ResponseEntity<TodoDto> {
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(todoService.getTodoById(todoId))
     }
 
     //할일 생성
+    @Operation(summary = "할일 카드 생성")
     @PostMapping()
-    fun createTodo(@RequestBody creatTodoRequest: CreateTodoRequest): ResponseEntity<TodoResponse> {
+    fun createTodo(@RequestBody creatTodoRequest: CreateTodoRequest): ResponseEntity<TodoDto> {
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(todoService.createTodo(creatTodoRequest))
     }
 
     // 할일 수정
+    @Operation(summary = "할일 카드 수정")
     @PutMapping("/{todoId}")
     fun updateTodo(@PathVariable todoId: Long, @RequestBody updateTodoRequest: UpdateTodoRequest
-    ): ResponseEntity<TodoResponse> {
+    ): ResponseEntity<TodoDto> {
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(todoService.updateTodo(todoId, updateTodoRequest))
     }
 
     // 할일 삭제
+    @Operation(summary = "할일 카드 삭제")
     @DeleteMapping("/{todoId}")
     fun deleteTodo(@PathVariable todoId: Long): ResponseEntity<Unit> {
         todoService.deleteTodo(todoId)
@@ -67,8 +71,9 @@ class TodoController(
     }
 
     //할일 완료
+    @Operation(summary = "할일 카드 완료")
     @PatchMapping("/{todoId}/complete")
-    fun completeTodo(@PathVariable todoId: Long): ResponseEntity<TodoResponse> {
+    fun completeTodo(@PathVariable todoId: Long): ResponseEntity<TodoDto> {
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(todoService.completeTodo(todoId))
