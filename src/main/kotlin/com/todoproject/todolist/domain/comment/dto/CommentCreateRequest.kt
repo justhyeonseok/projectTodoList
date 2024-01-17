@@ -1,6 +1,8 @@
 package com.todoproject.todolist.domain.comment.dto
 
-data class CommentRequest(
+import com.todoproject.todolist.domain.comment.model.Comment
+
+data class CommentCreateRequest(
     val content: String?,
     val writer: String?,
     val password: String

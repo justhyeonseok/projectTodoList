@@ -2,6 +2,7 @@ package com.todoproject.todolist.domain.todo.service
 
 import com.todoproject.todolist.domain.todo.dto.request.CreateTodoRequest
 import com.todoproject.todolist.domain.todo.dto.request.UpdateTodoRequest
+import com.todoproject.todolist.domain.todo.dto.response.RetrieveTodoDto
 import com.todoproject.todolist.domain.todo.dto.response.TodoDto
 
 interface TodoService {
@@ -10,7 +11,7 @@ interface TodoService {
     fun getAllTodoList(completed: Boolean?): List<TodoDto>
 
     // 할일 단건 조회
-    fun getTodoById(todoId: Long): TodoDto
+    fun getTodoById(todoId: Long): RetrieveTodoDto
 
     // 할일 생성
     fun createTodo(createTodoRequest: CreateTodoRequest): TodoDto

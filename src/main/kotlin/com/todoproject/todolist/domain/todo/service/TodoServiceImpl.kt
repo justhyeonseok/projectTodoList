@@ -5,6 +5,7 @@ import com.todoproject.todolist.domain.todo.dto.request.CreateTodoRequest
 import com.todoproject.todolist.domain.todo.dto.request.UpdateTodoRequest
 import com.todoproject.todolist.domain.todo.dto.response.TodoDto
 import com.todoproject.todolist.domain.exception.TodoNotFoundException
+import com.todoproject.todolist.domain.todo.dto.response.RetrieveTodoDto
 import com.todoproject.todolist.domain.todo.model.Todo
 import com.todoproject.todolist.domain.todo.repository.TodoRepository
 import org.springframework.data.repository.findByIdOrNull
@@ -26,9 +27,9 @@ class TodoServiceImpl(private val todoRepository: TodoRepository): TodoService {
 
 
     @Transactional(readOnly = true)
-    override fun getTodoById(todoId: Long): TodoDto {
+    override fun getTodoById(todoId: Long): RetrieveTodoDto {
         val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException("todo", todoId)
-        return todo.let { TodoDto.from(it) }
+        return todo.let { RetrieveTodoDto.from(it) }
         //return TodoDto.from(tod0) 와 같음 tod0?.let 이라고 한다면 널이라면 널을 반환
     }
 
