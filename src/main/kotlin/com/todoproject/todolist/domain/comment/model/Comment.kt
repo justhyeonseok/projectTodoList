@@ -25,4 +25,7 @@ class Comment(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
+    fun changeContent(content: String?) {
+        this.content = content
+    }
 }

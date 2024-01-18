@@ -41,8 +41,9 @@ class TodoServiceImpl(private val todoRepository: TodoRepository): TodoService {
 
     @Transactional
     override fun updateTodo(todoId: Long, updateTodoRequest: UpdateTodoRequest): TodoDto {
-        todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException("todo", todoId)
-        val savedTodo = todoRepository.save(updateTodoRequest.to())
+        val todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException("todo", todoId)
+        todo.changeTodo(updateTodoRequest)
+        val savedTodo = todoRepository.save(todo)
         return TodoDto.from(savedTodo)
     }
 

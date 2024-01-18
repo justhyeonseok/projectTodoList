@@ -2,6 +2,7 @@ package com.todoproject.todolist.domain.todo.controller
 
 import com.todoproject.todolist.domain.todo.dto.request.CreateTodoRequest
 import com.todoproject.todolist.domain.todo.dto.request.UpdateTodoRequest
+import com.todoproject.todolist.domain.todo.dto.response.RetrieveTodoDto
 import com.todoproject.todolist.domain.todo.dto.response.TodoDto
 import com.todoproject.todolist.domain.todo.service.TodoService
 import io.swagger.v3.oas.annotations.Operation
@@ -25,7 +26,7 @@ class TodoController(
 
     // 할일 목록조회
     @GetMapping()
-    @Operation(summary = "할일 목록 전체 조회 ")
+    @Operation(summary = "할일 완료 목록 전체 조회 ")
     fun getTodoList(): ResponseEntity<List<TodoDto>> {
         return ResponseEntity
             .status(HttpStatus.OK)
@@ -35,7 +36,7 @@ class TodoController(
     // 할일 단건 조회
     @Operation(summary = "할일 단건 조회", description = "할일 단건을 조회합니다.")
     @GetMapping("/{todoId}")
-    fun getTodo(@PathVariable todoId: Long): ResponseEntity<TodoDto> {
+    fun getTodo(@PathVariable todoId: Long): ResponseEntity<RetrieveTodoDto> {
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(todoService.getTodoById(todoId))
@@ -53,7 +54,8 @@ class TodoController(
     // 할일 수정
     @Operation(summary = "할일 카드 수정")
     @PutMapping("/{todoId}")
-    fun updateTodo(@PathVariable todoId: Long, @RequestBody updateTodoRequest: UpdateTodoRequest
+    fun updateTodo(
+        @PathVariable todoId: Long, @RequestBody updateTodoRequest: UpdateTodoRequest
     ): ResponseEntity<TodoDto> {
         return ResponseEntity
             .status(HttpStatus.OK)

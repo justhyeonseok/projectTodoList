@@ -19,6 +19,4 @@ data class CommentDto(
             )
         }
     }
-
-
 }

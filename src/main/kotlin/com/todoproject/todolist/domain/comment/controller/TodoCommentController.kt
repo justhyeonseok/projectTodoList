@@ -1,8 +1,9 @@
 package com.todoproject.todolist.domain.comment.controller
 
-import com.todoproject.todolist.domain.comment.dto.CommentDeleteRequest
-import com.todoproject.todolist.domain.comment.dto.CommentCreateRequest
+import com.todoproject.todolist.domain.comment.dto.DeleteCommentRequest
+import com.todoproject.todolist.domain.comment.dto.CreateCommentRequest
 import com.todoproject.todolist.domain.comment.dto.CommentDto
+import com.todoproject.todolist.domain.comment.dto.UpdateCommentRequest
 import com.todoproject.todolist.domain.comment.service.CommentService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -22,31 +23,31 @@ class TodoCommentController(
     @PostMapping
     fun createComment(
         @PathVariable todoId: Long,
-        @RequestBody commentRequest: CommentCreateRequest
+        @RequestBody createCommentRequest: CreateCommentRequest
     ): ResponseEntity<CommentDto> {
         return ResponseEntity
             .status(HttpStatus.CREATED)
-            .body(commentService.createComment(todoId, commentRequest))
+            .body(commentService.createComment(todoId, createCommentRequest))
     }
 
     @PutMapping("/{commentId}")
     fun updateComment(
         @PathVariable todoId: Long,
         @PathVariable commentId: Long,
-        @RequestBody commentRequest: CommentCreateRequest
+        @RequestBody updateCommentRequest: UpdateCommentRequest
     ): ResponseEntity<CommentDto> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(commentService.updateComment(todoId, commentId, commentRequest))
+            .body(commentService.updateComment(todoId, commentId, updateCommentRequest))
     }
 
     @DeleteMapping("/{commentId}")
     fun deleteComment(
         @PathVariable todoId: Long,
         @PathVariable commentId: Long,
-        @RequestBody commentDeleteRequest: CommentDeleteRequest
+        @RequestBody deleteCommentRequest: DeleteCommentRequest
     ): ResponseEntity<Unit> {
-        commentService.deleteComment(todoId, commentId, commentDeleteRequest)
+        commentService.deleteComment(todoId, commentId, deleteCommentRequest)
         return ResponseEntity
             .status(HttpStatus.NO_CONTENT)
             .build()

@@ -1,6 +1,7 @@
 package com.todoproject.todolist.domain.todo.model
 
 import com.todoproject.todolist.domain.comment.model.Comment
+import com.todoproject.todolist.domain.todo.dto.request.UpdateTodoRequest
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -37,6 +38,13 @@ class Todo(
     fun complete() {
         completed = true
     }
+
+    fun changeTodo(updateTodoRequest: UpdateTodoRequest) {
+        this.title = updateTodoRequest.title
+        this.content = updateTodoRequest.title
+        this.writer = updateTodoRequest.writer
+    }
+
 }
 
 
