@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RequestMapping("/todos")
@@ -27,10 +28,12 @@ class TodoController(
     // 할일 목록조회
     @GetMapping()
     @Operation(summary = "할일 완료 목록 전체 조회 ")
-    fun getTodoList(): ResponseEntity<List<TodoDto>> {
+    fun getTodoList(
+        @RequestParam sort: String?
+    ): ResponseEntity<List<TodoDto>> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(todoService.getAllTodoList(completed = true))
+            .body(todoService.getAllTodoList(sort))
     }
 
     // 할일 단건 조회

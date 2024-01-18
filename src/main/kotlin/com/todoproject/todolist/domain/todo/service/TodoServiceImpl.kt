@@ -13,16 +13,15 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
-class TodoServiceImpl(private val todoRepository: TodoRepository): TodoService {
+class TodoServiceImpl(private val todoRepository: TodoRepository) : TodoService {
 
     @Transactional(readOnly = true)
-    override fun getAllTodoList(completed: Boolean?): List<TodoDto> {
-        val todos: List<Todo> = if (completed != null) {
-            todoRepository.findByCompleted(completed)
+    override fun getAllTodoList(sort: String?): List<TodoDto> {
+        return if (sort == "createAt") {
+            todoRepository.findAllByOrderByCreateAtAsc()
         } else {
-            todoRepository.findAll()
+            todoRepository.findAllByOrderByCreateAtDesc()
         }
-        return todos.map { TodoDto.from(it) }
     }
 
 

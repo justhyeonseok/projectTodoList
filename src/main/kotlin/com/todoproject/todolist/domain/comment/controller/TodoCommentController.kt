@@ -5,6 +5,7 @@ import com.todoproject.todolist.domain.comment.dto.CreateCommentRequest
 import com.todoproject.todolist.domain.comment.dto.CommentDto
 import com.todoproject.todolist.domain.comment.dto.UpdateCommentRequest
 import com.todoproject.todolist.domain.comment.service.CommentService
+import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -21,6 +22,7 @@ class TodoCommentController(
     private val commentService: CommentService
 ) {
     @PostMapping
+    @Operation(summary = "댓글 생성")
     fun createComment(
         @PathVariable todoId: Long,
         @RequestBody createCommentRequest: CreateCommentRequest
@@ -30,6 +32,7 @@ class TodoCommentController(
             .body(commentService.createComment(todoId, createCommentRequest))
     }
 
+    @Operation(summary = "댓글 수정")
     @PutMapping("/{commentId}")
     fun updateComment(
         @PathVariable todoId: Long,
@@ -41,6 +44,7 @@ class TodoCommentController(
             .body(commentService.updateComment(todoId, commentId, updateCommentRequest))
     }
 
+    @Operation(summary = "댓글 삭제")
     @DeleteMapping("/{commentId}")
     fun deleteComment(
         @PathVariable todoId: Long,

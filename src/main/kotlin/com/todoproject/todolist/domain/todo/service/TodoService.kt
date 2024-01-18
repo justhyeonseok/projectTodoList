@@ -8,7 +8,7 @@ import com.todoproject.todolist.domain.todo.dto.response.TodoDto
 interface TodoService {
 
     // 할일 목록 조회
-    fun getAllTodoList(completed: Boolean?): List<TodoDto>
+    fun getAllTodoList(sort: String?): List<TodoDto>
 
     // 할일 단건 조회
     fun getTodoById(todoId: Long): RetrieveTodoDto
