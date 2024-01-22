@@ -6,15 +6,13 @@ data class UserDto(
     var id: Long?,
     val authorName: String,
     val userEmail: String,
-    val password: String,
 ) {
     companion object {
         fun from(user: User): UserDto {
             return UserDto(
                 id = user.id!!,
-                authorName = user.authorName,
+                authorName = user.authorName.nickname,
                 userEmail = user.userEmail,
-                password = user.password
             )
         }
     }

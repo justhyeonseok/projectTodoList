@@ -1,6 +1,5 @@
 package com.todoproject.todolist.domain.exception
 
-import com.todoproject.todolist.domain.todo.dto.response.ErrorResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -29,5 +28,11 @@ class MyGlobalExceptionHandler {
             .body(ErrorResponse(message = e.message, errorCode = "패스워드가 틀립니다."))
     }
 
+    @ExceptionHandler(InvalidCredentialException::class)
+    fun handleInvalidCredentialException(e: InvalidCredentialException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity
+            .status(HttpStatus.UNAUTHORIZED)
+            .body(ErrorResponse(message = e.message, errorCode = "패스워드가 틀립니다."))
+    }
 
 }

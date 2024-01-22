@@ -1,4 +1,4 @@
-package com.todoproject.todolist.domain.todo.dto.response
+package com.todoproject.todolist.domain.exception
 
 data class ErrorResponse(
     val message: String?,

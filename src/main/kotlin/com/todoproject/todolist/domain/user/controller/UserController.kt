@@ -1,6 +1,8 @@
 package com.todoproject.todolist.domain.user.controller
 
 import com.todoproject.todolist.domain.user.dto.UserDto
+import com.todoproject.todolist.domain.user.dto.UserLoginRequest
+import com.todoproject.todolist.domain.user.dto.UserLoginResponse
 import com.todoproject.todolist.domain.user.dto.UserSignUpRequest
 import com.todoproject.todolist.domain.user.service.UserService
 import com.todoproject.todolist.domain.user.service.UserServiceImpl
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/users")
 class UserController(val userService: UserService) {
     @PostMapping("/signup")
     @Operation(summary = "회원가입")
@@ -21,5 +22,13 @@ class UserController(val userService: UserService) {
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(userService.signUpUser(userSignUpRequest))
+    }
+
+    @PostMapping("/login")
+    @Operation(summary = "로그인")
+    fun loginUser(@RequestBody userLoginRequest: UserLoginRequest): ResponseEntity<UserLoginResponse> {
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(userService.loginUser(userLoginRequest))
     }
 }
