@@ -15,14 +15,14 @@ class MyGlobalExceptionHandler {
     }
 
     @ExceptionHandler(WriterNotMatchedException::class)
-    fun unauthorizedException(e: WriterNotMatchedException): ResponseEntity<ErrorResponse> {
+    fun unAuthorizedException(e: WriterNotMatchedException): ResponseEntity<ErrorResponse> {
         return ResponseEntity
             .status(HttpStatus.UNAUTHORIZED)
             .body(ErrorResponse(message = e.message, errorCode = "이름이 틀립니다."))
     }
 
     @ExceptionHandler(IncorrectPasswordException::class)
-    fun unauthorizedException(e: IncorrectPasswordException): ResponseEntity<ErrorResponse> {
+    fun unAuthorizedException(e: IncorrectPasswordException): ResponseEntity<ErrorResponse> {
         return ResponseEntity
             .status(HttpStatus.UNAUTHORIZED)
             .body(ErrorResponse(message = e.message, errorCode = "패스워드가 틀립니다."))
@@ -35,4 +35,10 @@ class MyGlobalExceptionHandler {
             .body(ErrorResponse(message = e.message, errorCode = "패스워드가 틀립니다."))
     }
 
+    @ExceptionHandler(UserNotFoundException::class)
+    fun userNotFoundException(e: UserNotFoundException): ResponseEntity<ErrorResponse> {
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(ErrorResponse(message = e.message, errorCode = "user를 찾을 수 없습니다."))
+    }
 }

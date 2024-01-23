@@ -1,21 +1,20 @@
 package com.todoproject.todolist.domain.comment.dto
 
 import com.todoproject.todolist.domain.comment.model.Comment
-import com.todoproject.todolist.domain.exception.WriterNotMatchedException
-import org.springframework.data.jpa.domain.AbstractPersistable_.id
+import com.todoproject.todolist.domain.user.model.Profile
 
 
 data class CommentDto(
     val id: Long,
     val content: String?,
-    val writer: String?
+    val author: Profile
 ) {
     companion object {
         fun from(comment: Comment): CommentDto {
             return CommentDto(
                 id = comment.id!!,
                 content = comment.content,
-                writer = comment.writer
+                author = comment.author.authorName
             )
         }
     }

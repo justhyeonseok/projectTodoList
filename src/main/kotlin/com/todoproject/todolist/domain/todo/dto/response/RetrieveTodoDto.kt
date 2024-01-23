@@ -2,6 +2,8 @@ package com.todoproject.todolist.domain.todo.dto.response
 
 import com.todoproject.todolist.domain.comment.dto.CommentDto
 import com.todoproject.todolist.domain.todo.model.Todo
+import com.todoproject.todolist.domain.user.model.Profile
+import com.todoproject.todolist.domain.user.model.User
 import java.time.LocalDateTime
 
 
@@ -10,7 +12,7 @@ data class RetrieveTodoDto(
     val title: String?,
     val content: String?,
     val createAt: LocalDateTime,
-    val writer: String?,
+    val author: Profile,
     val completed: Boolean,
     val commentList: List<CommentDto>
 ) {
@@ -21,13 +23,13 @@ data class RetrieveTodoDto(
                 title = todo.title,
                 content = todo.content,
                 createAt = todo.createAt,
-                writer = todo.writer,
+                author = todo.author.authorName,
                 completed = todo.completed,
                 commentList = todo.comments.map {
                     CommentDto(
                         it.id!!,
                         it.content,
-                        it.writer
+                        it.author.authorName
                     )
                 }
             )

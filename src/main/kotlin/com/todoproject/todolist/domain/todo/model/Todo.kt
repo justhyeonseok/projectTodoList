@@ -2,6 +2,7 @@ package com.todoproject.todolist.domain.todo.model
 
 import com.todoproject.todolist.domain.comment.model.Comment
 import com.todoproject.todolist.domain.todo.dto.request.UpdateTodoRequest
+import com.todoproject.todolist.domain.user.model.User
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -14,8 +15,10 @@ class Todo(
     @Column(name = "content")
     var content: String? = null,
 
-    @Column(name = "writer")
-    var writer: String? = null,
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    val author: User,
+
     @OneToMany(
         mappedBy = "todo", fetch = FetchType.LAZY, cascade = [CascadeType.ALL], orphanRemoval = true
     ) // 생명주기 결정
@@ -42,7 +45,6 @@ class Todo(
     fun changeTodo(updateTodoRequest: UpdateTodoRequest) {
         this.title = updateTodoRequest.title
         this.content = updateTodoRequest.title
-        this.writer = updateTodoRequest.writer
     }
 
 }

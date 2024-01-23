@@ -7,5 +7,4 @@ import jakarta.persistence.Embeddable
 data class Profile(
     @Column(name = "name")
     var nickname: String
-) {
-}
+)
