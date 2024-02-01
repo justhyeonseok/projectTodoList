@@ -4,9 +4,11 @@ import com.todoproject.todolist.domain.todo.dto.request.CreateTodoRequest
 import com.todoproject.todolist.domain.todo.dto.request.UpdateTodoRequest
 import com.todoproject.todolist.domain.todo.dto.response.RetrieveTodoDto
 import com.todoproject.todolist.domain.todo.dto.response.TodoDto
+import com.todoproject.todolist.domain.todo.model.Todo
 import com.todoproject.todolist.infra.security.UserPrincipal
 
 interface TodoService {
+    fun searchTodoList(title: String): List<TodoDto>
 
     // 할일 목록 조회
     fun getAllTodoList(sort: String?): List<TodoDto>

@@ -27,6 +27,14 @@ class TodoController(
     private val todoService: TodoService
 ) {
 
+    @Operation(summary = "할일 검색")
+    @GetMapping("/search")
+    fun searchTodoList(@RequestParam(name = "title") title: String): ResponseEntity<List<TodoDto>> {
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(todoService.searchTodoList(title))
+    }
+
     // 할일 목록조회
     @GetMapping()
     @Operation(summary = "할일 완료 목록 전체 조회 ")
@@ -57,6 +65,7 @@ class TodoController(
         @AuthenticationPrincipal user: UserPrincipal,
         @RequestBody creatTodoRequest: CreateTodoRequest
     ): ResponseEntity<TodoDto> {
+        println("user::::::${user}")
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(todoService.createTodo(creatTodoRequest, user))

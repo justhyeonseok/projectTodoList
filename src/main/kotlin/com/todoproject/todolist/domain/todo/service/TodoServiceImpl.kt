@@ -7,6 +7,8 @@ import com.todoproject.todolist.domain.todo.dto.response.TodoDto
 import com.todoproject.todolist.domain.exception.TodoNotFoundException
 import com.todoproject.todolist.domain.exception.UserNotFoundException
 import com.todoproject.todolist.domain.todo.dto.response.RetrieveTodoDto
+import com.todoproject.todolist.domain.todo.model.QTodo.todo
+import com.todoproject.todolist.domain.todo.model.Todo
 import com.todoproject.todolist.domain.todo.repository.TodoRepository
 import com.todoproject.todolist.domain.user.repository.UserRepository
 import com.todoproject.todolist.infra.security.UserPrincipal
@@ -18,8 +20,13 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 class TodoServiceImpl(
     private val todoRepository: TodoRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
 ) : TodoService {
+
+    override fun searchTodoList(title: String): List<TodoDto> {
+        return todoRepository.searchTodoListByTitle(title).map { TodoDto.from(it) }
+
+    }
 
     @Transactional(readOnly = true)
     override fun getAllTodoList(sort: String?): List<TodoDto> {
@@ -61,6 +68,8 @@ class TodoServiceImpl(
     @Transactional
     @PreAuthorize("hasRole('MEMBER')")
     override fun deleteTodo(todoId: Long, user: UserPrincipal) {
+
+
         val todo = todoRepository.findByIdAndAuthor(
             todoId,
             userRepository.findByIdOrNull(user.id) ?: throw UserNotFoundException("userId", user)
