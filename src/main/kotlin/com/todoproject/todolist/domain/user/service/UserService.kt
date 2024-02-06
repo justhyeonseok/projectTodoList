@@ -8,4 +8,5 @@ import com.todoproject.todolist.domain.user.dto.UserSignUpRequest
 interface UserService {
     fun signUpUser(userSignUpRequest: UserSignUpRequest): UserDto
     fun loginUser(userLoginRequest: UserLoginRequest): UserLoginResponse
+    fun existsByUserName(nickName: String): String
 }

@@ -1,7 +1,6 @@
 package com.todoproject.todolist.domain.user.service
 
-import com.todoproject.todolist.domain.exception.InvalidCredentialException
-import com.todoproject.todolist.domain.exception.WriterNotMatchedException
+import com.todoproject.todolist.domain.exception.*
 import com.todoproject.todolist.domain.user.dto.UserDto
 import com.todoproject.todolist.domain.user.dto.UserLoginRequest
 import com.todoproject.todolist.domain.user.dto.UserLoginResponse
@@ -26,8 +25,15 @@ class UserServiceImpl(
     @Transactional
     override fun signUpUser(userSignUpRequest: UserSignUpRequest): UserDto {
         if (userRepository.existsByUserEmail(userSignUpRequest.userEmail)) {
-            throw IllegalStateException("Email is already in use")
+            throw IllegalStateException("중복된 이메일입니다.")
         }
+        if (userSignUpRequest.confirmPassword != userSignUpRequest.password) {
+            throw InvalidCredentialException()
+        }
+        if (userSignUpRequest.userRole != "MEMBER") {
+            throw ModelNotFoundException("role", null)
+        }
+
         val saveUser = userRepository.save(
             User(
                 userEmail = userSignUpRequest.userEmail,
@@ -43,7 +49,7 @@ class UserServiceImpl(
     @Transactional
     override fun loginUser(userLoginRequest: UserLoginRequest): UserLoginResponse {
         val user =
-            userRepository.findByUserEmail(userLoginRequest.userEmail) ?: throw WriterNotMatchedException("User", null)
+            userRepository.findByUserEmail(userLoginRequest.userEmail) ?: throw ModelNotFoundException("User", null)
         if (user.userRole.name != userLoginRequest.userRole || !passwordEncoder.matches(
                 userLoginRequest.password,
                 user.password
@@ -58,10 +64,12 @@ class UserServiceImpl(
                 role = user.userRole.name
             )
         )
-
-
     }
 
+    override fun existsByUserName(nickName: String): String {
+        userRepository.searchNickName(nickName) ?: throw IsModelAvailableException(nickName)
+        return "중복된 이름입니다."
+    }
 
 
 

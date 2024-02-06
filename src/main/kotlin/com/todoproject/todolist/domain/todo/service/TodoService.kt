@@ -11,7 +11,7 @@ interface TodoService {
     fun searchTodoList(title: String): List<TodoDto>
 
     // 할일 목록 조회
-    fun getAllTodoList(sort: String?): List<TodoDto>
+    fun getByTodoList(): List<TodoDto>
 
     // 할일 단건 조회
     fun getTodoById(todoId: Long, user: UserPrincipal): RetrieveTodoDto

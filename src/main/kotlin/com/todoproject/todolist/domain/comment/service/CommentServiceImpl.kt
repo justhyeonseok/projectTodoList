@@ -5,8 +5,7 @@ import com.todoproject.todolist.domain.comment.dto.CommentDto
 import com.todoproject.todolist.domain.comment.dto.UpdateCommentRequest
 import com.todoproject.todolist.domain.comment.model.Comment
 import com.todoproject.todolist.domain.comment.repository.CommentRepository
-import com.todoproject.todolist.domain.exception.TodoNotFoundException
-import com.todoproject.todolist.domain.exception.UserNotFoundException
+import com.todoproject.todolist.domain.exception.ModelNotFoundException
 import com.todoproject.todolist.domain.todo.repository.TodoRepository
 import com.todoproject.todolist.domain.user.repository.UserRepository
 import com.todoproject.todolist.infra.security.UserPrincipal
@@ -28,8 +27,8 @@ class CommentServiceImpl(
     ): CommentDto {
         val comment = Comment(
             content = createCommentRequest.content,
-            author = userRepository.findByIdOrNull(user.id) ?: throw UserNotFoundException("user", user),
-            todo = todoRepository.findByIdOrNull(todoId) ?: throw TodoNotFoundException("todo", todoId)
+            author = userRepository.findByIdOrNull(user.id) ?: throw ModelNotFoundException("user", user.id),
+            todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("todo", todoId)
         )
         val saveComment = commentRepository.save(comment)
         return CommentDto.from(saveComment)
@@ -41,7 +40,7 @@ class CommentServiceImpl(
     ): CommentDto {
         val comment =
             commentRepository.findByIdAndTodoIdAndAuthor(commentId, todoId, userRepository.findByIdOrNull(user.id))
-                ?: throw TodoNotFoundException("todo or userId", todoId)
+                ?: throw ModelNotFoundException("todo or userId", todoId)
         comment.changeContent(updateCommentRequest.content)
         val updateComment = commentRepository.save(comment)
         return CommentDto.from(updateComment)
@@ -55,7 +54,7 @@ class CommentServiceImpl(
     ) {
         val delete =
             commentRepository.findByIdAndTodoIdAndAuthor(todoId, commentId, userRepository.findByIdOrNull(user.id))
-                ?: throw TodoNotFoundException(
+                ?: throw ModelNotFoundException(
                     "todo, comment",
                     todoId
                 )

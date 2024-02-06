@@ -37,13 +37,12 @@ class TodoController(
 
     // 할일 목록조회
     @GetMapping()
-    @Operation(summary = "할일 완료 목록 전체 조회 ")
-    fun getTodoList(
-        @RequestParam sort: String?
+    @Operation(summary = "할일 목록 전체 조회 ")
+    fun getByTodoList(
     ): ResponseEntity<List<TodoDto>> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(todoService.getAllTodoList(sort))
+            .body(todoService.getByTodoList())
     }
 
     // 할일 단건 조회

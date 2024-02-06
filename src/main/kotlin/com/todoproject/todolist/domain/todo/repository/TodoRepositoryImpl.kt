@@ -14,4 +14,10 @@ class TodoRepositoryImpl : QueryDslSupport(), CustomTodoRepository {
             .fetch()
     }
 
+    override fun getByTodoListByAsc(): List<Todo> {
+        return queryFactory.selectFrom(todo)
+            .orderBy(todo.createAt.asc())
+            .fetch()
+    }
+
 }

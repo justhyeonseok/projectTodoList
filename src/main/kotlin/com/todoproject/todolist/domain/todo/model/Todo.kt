@@ -16,7 +16,7 @@ class Todo(
     var content: String? = null,
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     val author: User,
 
     @OneToMany(
