@@ -14,7 +14,7 @@ interface TodoService {
     fun getByTodoList(): List<TodoDto>
 
     // 할일 단건 조회
-    fun getTodoById(todoId: Long, user: UserPrincipal): RetrieveTodoDto
+    fun getTodoById(todoId: Long): RetrieveTodoDto
 
     // 할일 생성
     fun createTodo(createTodoRequest: CreateTodoRequest, user: UserPrincipal): TodoDto

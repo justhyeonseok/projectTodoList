@@ -35,7 +35,7 @@ class Todo(
     @Column(name = "complete")
     var completed: Boolean = false
 
-    val iscompleted: Boolean
+    val isCompleted: Boolean
         get() = completed
 
     fun complete() {

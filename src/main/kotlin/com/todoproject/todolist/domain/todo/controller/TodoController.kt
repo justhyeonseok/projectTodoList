@@ -5,6 +5,7 @@ import com.todoproject.todolist.domain.todo.dto.request.UpdateTodoRequest
 import com.todoproject.todolist.domain.todo.dto.response.RetrieveTodoDto
 import com.todoproject.todolist.domain.todo.dto.response.TodoDto
 import com.todoproject.todolist.domain.todo.service.TodoService
+import com.todoproject.todolist.domain.user.model.QUser.user
 import com.todoproject.todolist.infra.security.UserPrincipal
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.HttpStatus
@@ -49,12 +50,11 @@ class TodoController(
     @Operation(summary = "할일 단건 조회", description = "할일 단건을 조회합니다.")
     @GetMapping("/{todoId}")
     fun getTodo(
-        @PathVariable todoId: Long,
-        @AuthenticationPrincipal user: UserPrincipal
+        @PathVariable todoId: Long
     ): ResponseEntity<RetrieveTodoDto> {
         return ResponseEntity
             .status(HttpStatus.OK)
-            .body(todoService.getTodoById(todoId, user))
+            .body(todoService.getTodoById(todoId))
     }
 
     //할일 생성

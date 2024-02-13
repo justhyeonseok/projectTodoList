@@ -32,7 +32,7 @@ class TodoServiceImpl(
 
     @Transactional(readOnly = true)
     @PreAuthorize("hasRole('MEMBER')")
-    override fun getTodoById(todoId: Long, user: UserPrincipal): RetrieveTodoDto {
+    override fun getTodoById(todoId: Long): RetrieveTodoDto {
         val todo = todoRepository.findByIdOrNull(todoId) ?: throw ModelNotFoundException("todo", todoId)
         return todo.let { RetrieveTodoDto.from(it) }
         //return TodoDto.from(tod0) 와 같음 tod0?.let 이라고 한다면 널이라면 널을 반환

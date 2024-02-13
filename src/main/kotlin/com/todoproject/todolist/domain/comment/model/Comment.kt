@@ -24,13 +24,22 @@ class Comment(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null
+
+    @Column(name = "like_count")
+    var count: Int = 0
+
     fun changeContent(content: String?) {
         this.content = content
     }
-
     fun checkAuthorization(user: User) {
         if (this.author.id != user.id) {
             throw Exception("No permission")
         }
+    }
+    fun likeUp() {
+        count += 1
+    }
+    fun likeDown() {
+        count -= 1
     }
 }

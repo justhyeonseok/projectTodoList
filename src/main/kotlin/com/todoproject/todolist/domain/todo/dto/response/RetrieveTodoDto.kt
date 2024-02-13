@@ -3,9 +3,7 @@ package com.todoproject.todolist.domain.todo.dto.response
 import com.todoproject.todolist.domain.comment.dto.CommentDto
 import com.todoproject.todolist.domain.todo.model.Todo
 import com.todoproject.todolist.domain.user.model.Profile
-import com.todoproject.todolist.domain.user.model.User
 import java.time.LocalDateTime
-
 
 data class RetrieveTodoDto(
     val id: Long,
@@ -29,7 +27,8 @@ data class RetrieveTodoDto(
                     CommentDto(
                         it.id!!,
                         it.content,
-                        it.author.authorName
+                        it.author.authorName,
+                        it.count
                     )
                 }
             )

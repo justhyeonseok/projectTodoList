@@ -19,5 +19,4 @@ class TodoRepositoryImpl : QueryDslSupport(), CustomTodoRepository {
             .orderBy(todo.createAt.asc())
             .fetch()
     }
-
 }

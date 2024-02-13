@@ -2,6 +2,7 @@ package com.todoproject.todolist.domain.comment.service
 
 import com.todoproject.todolist.domain.comment.dto.CreateCommentRequest
 import com.todoproject.todolist.domain.comment.dto.CommentDto
+import com.todoproject.todolist.domain.comment.dto.CommentLikeDto
 import com.todoproject.todolist.domain.comment.dto.UpdateCommentRequest
 import com.todoproject.todolist.infra.security.UserPrincipal
 
@@ -14,4 +15,5 @@ interface CommentService {
     ): CommentDto
 
     fun deleteComment(todoId: Long, commentId: Long, user: UserPrincipal)
+    fun commentLikeStatusChange(commentId: Long, user: UserPrincipal): CommentLikeDto
 }

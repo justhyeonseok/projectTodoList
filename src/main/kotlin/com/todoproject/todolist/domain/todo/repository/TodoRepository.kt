@@ -6,7 +6,5 @@ import com.todoproject.todolist.domain.user.model.User
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface TodoRepository : JpaRepository<Todo, Long>, CustomTodoRepository {
-    fun findAllByOrderByCreateAtDesc(): List<TodoDto>
-    fun findAllByOrderByCreateAtAsc(): List<TodoDto>
     fun findByIdAndAuthor(todoId: Long, userId: User): Todo?
 }
