@@ -1,21 +1,12 @@
 spring:
+  datasource:
+    url:
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
   jpa:
-    properties:
-      hibernate:
-        format_sql: true
-        highlight_sql: true
-        use_sql_comments: true
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: debug
-        orm:
-          jdbc:
-            bind: trace
-      springframework:
-        security: debug
-
+    hibernate:
+      ddl-auto: create-drop
 auth:
   jwt:
     issuer: team.sparta.com
