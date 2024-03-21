@@ -1,12 +1,12 @@
 spring:
   datasource:
-    url:
-    username:
+    url: jdbc:postgresql://my-practice-db.c5268ca4wfrh.ap-northeast-2.rds.amazonaws.com:5432/postgres
+    username: hyeonseok
     password:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 auth:
   jwt:
     issuer: team.sparta.com
