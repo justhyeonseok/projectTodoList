@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Checkout Repository  # 저장소를 체크아웃하는 단계
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Install SSH key
       uses: webfactory/ssh-agent@v0.5.3
