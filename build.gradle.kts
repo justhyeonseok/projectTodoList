@@ -43,6 +43,10 @@ repositories {
 
 val queryDslVersion = "5.0.0"
 
+val kotestVersion = "5.5.5" // 추가!
+
+val mockkVersion = "1.13.8" // 추가!
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -60,12 +64,13 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-validation")
 
-
-
-
-
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.3")
+    testImplementation("io.mockk:mockk:$mockkVersion")
 
     runtimeOnly("org.postgresql:postgresql")
 
@@ -83,3 +88,7 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+//tasks.withType<Test>().configureEach() {
+//    useJUnitPlatform()
+//}

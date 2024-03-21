@@ -66,10 +66,13 @@ class UserServiceImpl(
         )
     }
 
+    // 이메일 중복검사
+    @Transactional
     override fun existsByUserName(nickName: String): String {
         userRepository.searchNickName(nickName) ?: throw IsModelAvailableException(nickName)
         return "중복된 이름입니다."
     }
+
 
 
 

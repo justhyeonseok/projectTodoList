@@ -31,11 +31,11 @@ class Comment(
     fun changeContent(content: String?) {
         this.content = content
     }
-    fun checkAuthorization(user: User) {
-        if (this.author.id != user.id) {
-            throw Exception("No permission")
-        }
-    }
+//    fun checkAuthorization(user: User) {
+//        if (this.author.id != user.id) {
+//            throw Exception("No permission")
+//        }
+//    }
     fun likeUp() {
         count += 1
     }

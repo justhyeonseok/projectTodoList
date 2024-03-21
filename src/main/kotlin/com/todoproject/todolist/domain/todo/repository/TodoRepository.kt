@@ -1,6 +1,6 @@
 package com.todoproject.todolist.domain.todo.repository
 
-import com.todoproject.todolist.domain.todo.dto.response.TodoDto
+
 import com.todoproject.todolist.domain.todo.model.Todo
 import com.todoproject.todolist.domain.user.model.User
 import org.springframework.data.jpa.repository.JpaRepository

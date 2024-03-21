@@ -47,5 +47,4 @@ class JwtPlugin(
             .signWith(key)
             .compact()
     }
-
 }

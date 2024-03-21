@@ -24,5 +24,4 @@ class JwtAuthenticationToken(
     override fun isAuthenticated(): Boolean {
         return true
     }
-
 }

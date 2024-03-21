@@ -34,9 +34,15 @@ class SecurityConfig(
                     // 위 URI를 제외하곤 모두 인증이 되어야 함.
                     .anyRequest().authenticated()
             }
+            .logout {
+                it.logoutUrl("/logout")
+                    .logoutSuccessUrl("/swagger-ui/index.html")
+                    .deleteCookies("Set-Cookie")
+                    .invalidateHttpSession(true)
+            }
             // 기존 UsernamePasswordAuthenticationFilter 가 존재하던 자리에 JwtAuthenticationFilter 적용
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)//
-            .exceptionHandling{
+            .exceptionHandling {
                 it.authenticationEntryPoint(authenticationEntryPoint)
             }
             .build()

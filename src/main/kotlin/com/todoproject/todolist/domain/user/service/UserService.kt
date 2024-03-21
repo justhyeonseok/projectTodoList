@@ -9,4 +9,5 @@ interface UserService {
     fun signUpUser(userSignUpRequest: UserSignUpRequest): UserDto
     fun loginUser(userLoginRequest: UserLoginRequest): UserLoginResponse
     fun existsByUserName(nickName: String): String
+
 }
