@@ -4,7 +4,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
-
 auth:
   jwt:
     issuer: team.sparta.com
