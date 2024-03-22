@@ -26,8 +26,7 @@ jobs:
     steps:
       - name: Checkout Repository  # 저장소를 체크아웃하는 단계
         uses: actions/checkout@v3
-
-
+    
       # JDK 17 설정한당
       # temurin = Adoptium에서 제공하는 JDK
       - name: Set up JDK 17
@@ -35,6 +34,17 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+          
+      - name: Generate Environment Variables File for Production
+        run: |
+          echo "SPRING_DATASOURCE_URL=$SPRING_DATASOURCE_URL" >> ./src/main/resources/env.yml
+          echo "SPRING_DATASOURCE_USERNAME=$SPRING_DATASOURCE_USERNAME" >> ./src/main/resources/env.yml
+          echo "SPRING_DATASOURCE_PASSWORD=$SPRING_DATASOURCE_PASSWORD" >> ./src/main/resources/env.yml
+        
+        env:
+          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL}}
+          SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
+          SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
 
       # gradle wrapper 파일에 실행 권한을 부여
       # gradle wrapper = 개발자가 특정 버전의 Gradle을 미리 설치하지 않고도 Gradle 빌드를 실행할 수 있게 해주는 편리한 도구
@@ -66,17 +76,6 @@ jobs:
         with:
           name: TodoList
           path: build/libs
-          
-      - name: Generate Environment Variables File for Production
-        run: |
-          echo "SPRING_DATASOURCE_URL=$SPRING_DATASOURCE_URL" >> ./src/main/resources/env.yml
-          echo "SPRING_DATASOURCE_USERNAME=$SPRING_DATASOURCE_USERNAME" >> ./src/main/resources/env.yml
-          echo "SPRING_DATASOURCE_PASSWORD=$SPRING_DATASOURCE_PASSWORD" >> ./src/main/resources/env.yml
-        
-        env:
-          SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL}}
-          SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
-          SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
 
       # EC2에 배포
       # EC2 SSH 키를 private_key.pem 파일로 저장 ( 위치는 GitHub 서버 )
