@@ -65,19 +65,8 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: TodoList
-          path: build/libs/
-
-      # EC2에 배포
-      # EC2 SSH 키를 private_key.pem 파일로 저장 ( 위치는 GitHub 서버 )
-      # SCP를 사용하여 JAR 파일을 EC2 서버로 복사
-      # SSH를 사용하여 EC2 서버에 연결하고 현재 실행 중인 Java 프로세스를 종료한 다음 새로운 Java 프로세스 생성 및 실행!!
-      ## NLP 적용하면 IP -> 도메인으로 수정 + EC2 늘리면 run 추가
-      - name: Deploy to EC2
-        run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > mike.pem
-          chmod 600 mike.pem
-          ssh -i mike.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 
-          rm -f mike.pem
+          path: build/libs
+          
       - name: Generate Environment Variables File for Production
         run: |
           echo "SPRING_DATASOURCE_URL=$SPRING_DATASOURCE_URL" >> ./src/main/resources/env.yml
@@ -88,4 +77,17 @@ jobs:
           SPRING_DATASOURCE_URL: ${{ secrets.SPRING_DATASOURCE_URL}}
           SPRING_DATASOURCE_USERNAME: ${{ secrets.SPRING_DATASOURCE_USERNAME }}
           SPRING_DATASOURCE_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+
+      # EC2에 배포
+      # EC2 SSH 키를 private_key.pem 파일로 저장 ( 위치는 GitHub 서버 )
+      # SCP를 사용하여 JAR 파일을 EC2 서버로 복사
+      # SSH를 사용하여 EC2 서버에 연결하고 현재 실행 중인 Java 프로세스를 종료한 다음 새로운 Java 프로세스 생성 및 실행!!
+      ## NLP 적용하면 IP -> 도메인으로 수정 + EC2 늘리면 run 추가
+      - name: Deploy to EC2
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > mike.pem
+          chmod 600 mike.pem
+          ssh -i mike.pem ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 
+          rm -f mike.pem
+      
 
