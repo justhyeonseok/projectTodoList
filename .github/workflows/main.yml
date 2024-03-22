@@ -86,7 +86,7 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > mike.pem
           chmod 600 mike.pem
-          ssh -i mike.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 
+          ssh -i "mike.pem" -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} 
           rm -f mike.pem
       
 
