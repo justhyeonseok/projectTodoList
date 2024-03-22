@@ -1,12 +1,9 @@
 spring:
   datasource:
-    url: jdbc:postgresql://db-cosmic.c5268ca4wfrh.ap-northeast-2.rds.amazonaws.com:5432/postgres
-    username: hyeonseok
-    password: 12Qwaszx!
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 auth:
   jwt:
     issuer: team.sparta.com
