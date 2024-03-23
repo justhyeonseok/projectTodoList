@@ -84,7 +84,7 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > mike.pem
           chmod 600 mike.pem
-          chmod +w /home/***/TodoList.jar
+          chmod +w /home/${{ secrets.EC2_USERNAME }}/TodoList.jar
           scp -i mike.pem -o StrictHostKeyChecking=no build/libs/TodoList-0.0.1-SNAPSHOT.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/TodoList.jar
           ssh -v -i mike.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "pgrep java | xargs kill -9; nohup java -jar /home/${{ secrets.EC2_USERNAME }}/TodoList.jar > app.log 2>&1 &"
           rm -f mike.pem
