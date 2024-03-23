@@ -84,8 +84,8 @@ jobs:
       ## NLP 적용하면 IP -> 도메인으로 수정 + EC2 늘리면 run 추가
       - name: Deploy to EC2
         run: |
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > mikes.pem
-          chmod 600 mikes.pem
-          ssh -i mikes.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} '~/script.sh' 
-          rm -f mikes.pem
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > mike
+          chmod 600 mike
+          ssh -i mike -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} '~/script.sh' 
+          rm -f mike
 
